@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Input from './components/input'
+import Paragraphs from './components/paragraphs'
+import Title from './components/title'
+import data from './data'
 
 function App() {
+  const [text, setText] = useState([])
+  const [count, setCount] = useState(0)
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    let amount = parseInt(count)
+    if (count <= 0) {
+      amount = 1
+    }
+    if (count > 10) {
+      amount = 10
+    }
+    setText(data.slice(0, amount))
+  }
+
+  console.log(text)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Title />
+      <Input handleSubmit={handleSubmit} setCount={setCount} count={count} />
+      <Paragraphs text={text} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
